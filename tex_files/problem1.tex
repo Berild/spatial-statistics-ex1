@@ -14,7 +14,30 @@ The discretized random field (RF) is
 \end{equation*}
 
 \paragraph{a)}
- The spatial correlation function $\rho_r(\tau)$ needs to be positive definite because...?
+A function $c(\vect{\tau}) : \R^q \rightarrow \R$ is positive definite (non-negative definite, to be precise) for $\vect{\tau} \in \R^q$ if
+%
+\begin{equation*}
+\begin{split}
+    & \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j c(\vect{x_i} - \vect{x_j}) \geq 0 \\
+    & \forall [\vect{x}_1, \vect{x}_2, \dots, \vect{x}_n] \in \R^{q \times n} \\
+    & \forall \vect{\alpha} \in \R^n \\
+    & \forall n \in \mathbb{N}_+ \setminus \{1\} \, .
+\end{split}
+\end{equation*}
+%
+In one dimension we replace the vectors $\vect{\tau}, \vect{x}_i$ and $\vect{x}_j$ with scalars $\tau, x_i$ and $x_j$.
+
+Now say that $\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j c(\vect{x_i} - \vect{x_j}) < 0$ for some $[x_1, x_2, \dots, x_n]$, $\vect{\alpha}$ and $n$. Then
+%
+\begin{align*}
+    \Var(\sum_{i=1}^n \alpha_i r(x_i)) 
+    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \Cov(r(x_i), r(x_j)) \\
+    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \sigma^2_r \Corr(r(x_i), r(x_j)) \\
+     &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \sigma^2_r \Corr(r(x_i), r(x_j)) \\
+    < 0
+\end{align*}
+
+The spatial correlation function $\rho_r(\tau)$ needs to be positive definite because...?
 
 Two possible correlation functions, $\rho_r(\tau)$, the Powered exponential and the Matern. Cruical features for the spatial correlation function...?
 

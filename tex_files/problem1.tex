@@ -1,12 +1,12 @@
-Continuous spatial variable in $\mathbb{R}^1$: 
+We consider a continuous spatial variable in $\mathbb{R}^1$ s.t. 
 \begin{align*}
     \{r(x): x \in \text{D} &: [1,50] \subset \mathbb{R}^1\} \\
-    E\{r(x)\} &= \mu_r = 0\\
-    Var\{r(x)\} & = \sigma_r^2 \\
-    Corr\{r(x)\} & = \rho_r(\tau)
+    \E\{r(x)\} &= \mu_r = 0\\
+    \Var\{r(x)\} & = \sigma_r^2 \\
+    \Corr\{r(x), r(x')\} & = \rho_r(\tau) \, ,
 \end{align*}
 
-$\tau = |x-x^\prime|/10.$ 
+where $\tau = |x-x^\prime|/10.$ 
 Discretization: $\text{L} \in \{1,2,...,50\}$.
 The discretized random field (RF) is 
 \begin{equation*}
@@ -27,21 +27,82 @@ A function $c(\vect{\tau}) : \R^q \rightarrow \R$ is positive definite (non-nega
 %
 In one dimension we replace the vectors $\vect{\tau}, \vect{x}_i$ and $\vect{x}_j$ with scalars $\tau, x_i$ and $x_j$.
 
-Now say that $\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j c(\vect{x_i} - \vect{x_j}) < 0$ for some $[x_1, x_2, \dots, x_n]$, $\vect{\alpha}$ and $n$. Then
+Now assume that $\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \rho_r(\tau) < 0$ for some $[x_1, x_2, \dots, x_n]$, $\vect{\alpha}$ and $n$. Then
 %
 \begin{align*}
-    \Var(\sum_{i=1}^n \alpha_i r(x_i)) 
-    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \Cov(r(x_i), r(x_j)) \\
-    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \sigma^2_r \Corr(r(x_i), r(x_j)) \\
-     &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \sigma^2_r \Corr(r(x_i), r(x_j)) \\
-    < 0
+    \Var\left(\sum_{i=1}^n \alpha_i r(x_i)\right) 
+    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \Cov\{r(x_i), r(x_j)\} \\
+    &= \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \sigma^2_r \Corr\{r(x_i), r(x_j)\} \\
+    &= \sigma^2_r \sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \rho_r(\tau) \\
+    &< 0 \, .
 \end{align*}
+%
+But the variance of a weighted sum of random variables is non-negative, so this is a contradiction. Thus the correlation function needs to be positive definite.
 
-The spatial correlation function $\rho_r(\tau)$ needs to be positive definite because...?
+Two possible correlation functions, $\rho_r(\tau)$, the Powered exponential and the Matern. The functions take values for $tau$, and a parameter $\nu_r$. Let $\nu_r \in \{1,3\}$ for the Matern function and $\nu_r \in \{1,1.9\}$ for Powered exponential. 
 
-Two possible correlation functions, $\rho_r(\tau)$, the Powered exponential and the Matern. Cruical features for the spatial correlation function...?
+The correlation functions for each $nu_r$ are shown in figure \ref{fig:corrfunc}. We see that the correlation is 1 for $\tau = 0$ and goes to 0 as $\tau$ increases for all the function and parameter configurations, as desired.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/corrfunc.pdf}
+    \caption{The Powered exponential and the Matern spatial correlation functions for some parameter values.}
+    \label{fig:corrfunc}
+\end{figure}
+
+The variogram function is
+\begin{align*}
+\gamma_r(\tau)
+\coloneqq&\: \frac{1}{2} \Var \{ r(x) - r(x') \} \\
+=&\: \sigma_r^2 - \Cov\{r(x), r(x')\} \\
+=&\: \sigma_r^2[1 - \rho_r(\tau)]\, .
+\end{align*}
+%
+
+Cruical features for the spatial correlation function...?
 
 Relation variance/correlation with variogram function?
+
+\begin{figure}[]
+\centering
+    \begin{subfigure}[H]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{figures/}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[H]{0.49\textwidth}  
+        \centering 
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{figures/}
+    \end{subfigure}
+
+    \vskip\baselineskip
+    
+     \begin{subfigure}[H]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{figures/}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[H]{0.49\textwidth}  
+        \centering 
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{figures/}
+    \end{subfigure}
+    
+    \vskip\baselineskip
+    
+         \begin{subfigure}[H]{0.49\textwidth}
+        \centering
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{grid_search_results/svm_gamma.pdf}
+        \label{fig:svm_gam}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[H]{0.49\textwidth}  
+        \centering 
+        \includegraphics[scale=0.5,trim=0cm 0cm 0cm 0cm]{grid_search_results/mlp_alpha.pdf}
+        \label{fig:mlp_al}
+    \end{subfigure}
+    \caption{text}
+    \label{fig:gs_remaining2}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{b)}
@@ -49,12 +110,14 @@ The discretized prior Gaussian model has pdf
 \begin{equation}
     \vect{r} \sim p(\vect{r}) = \phi_n(\vect{r}; \mu_r \vect(i)_n, \sigma_r^2\matr{\Sigma}_r^{\rho}),
 \end{equation}
-where $n = 50$ is the number of grid points in $\text{L},$ $\vect{i}_n$ is a $n$-vector with $1$s and $\matr{\Sigma}_r^{\rho}$ is the correlation matrix for the grid points, defined from the spatial correlation function.
+where $n = 50$ is the number of grid points in $\text{L},$ $\vect{i}_n$ is a $n$-vector with $1$s and $\matr{\Sigma}_r^{\rho}$ is the correlation matrix for the grid points, defined from the chosen spatial correlation function applied to all $tau$s in the system.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{c)}
-text text text
-
+Now assume the spatial variable is observed as 
+\begin{equation*}
+    \{d(x): x \in \{10,25,30\} \subset \text{L} \}.
+\end{equation*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
 text text text

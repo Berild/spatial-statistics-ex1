@@ -5,6 +5,7 @@ library(MASS) #mvrnorm is here
 library(akima)
 library(ggplot2)
 library(reshape2) #melt
+library(gridExtra) #grid.arrange
 
 #Grid
 n = 50
@@ -15,33 +16,69 @@ L = 1:50
 mu = 0
 E = matrix(rep(mu,50), ncol = 1)
 
+#Possible model parameters
+sigma2 = c(1,5)
+nu_m=c(1,3)
+nu_e = c(1,1.9)
+
 #Covariance matrix
 tau = rdist(L,L)/10
-sigma2 = c(1,5)
 
-nuMat=c(1,3)
-CorrelationFunctionMat=Matern(tau, range = 1, nu=nuMat[1]) #What should range be?
+CovMatPrior = function(tau, sigmasq, nu, func="m"){
+  if (tolower(func)== "e"){
+    corr = exp(-tau^nu)
+  }else if(tolower(func) == "m"){
+    corr = Matern(tau, range = 1, nu = nu) #What should range be?
+  }else{
+    warning("Unknown correlation function")
+    return(NULL)
+  }
+  Cov = sigmasq*corr
+  return(Cov)
+}
 
-nuExp = c(1,1.9)
-CorrelationFunctionExp = exp(-tau^nuExp[1])
+#Make vectors of parameter values to iterate through
+sigmaLong = rep(sigma2, times = 4)
+nuLong = c(rep(nu_e, each = 2), rep(nu_m, each = 2))
+funcLong = c(rep("e", 4), rep("m", 4))
+f = ifelse(funcLong=="e", "Pow Exp: ", "Matern: ")
+specifications = paste(f,"nu=",nuLong,", sigma=",sigmaLong, sep = "")
 
-Cov = sigma2[1]*CorrelationFunctionMat
+#Make samples and display them
+set.seed(42)
+nsamps = 10
 
-#Make samples
-sample = mvrnorm(10, E, Cov)
+plots = list()
+for(i in 1:8){
+  Cov = CovMatPrior(tau,sigmaLong[i], nuLong[i], funcLong[i])
+  realizations = mvrnorm(nsamps, E, Cov)
+  
+  #Displaying:
+  sampleDF = as.data.frame(t(realizations))
+  sampleDF$L = L
+  #Changing format to be able to plot all realisations
+  long_realis = melt(sampleDF, id = "L")
+  
+  plots= ggplot(long_realis,
+         aes(x=L, y=value, colour=variable)) +
+    geom_line()+
+    ggtitle("Realizations of 1D Gaussian RF") +
+    xlab("x")+
+    ylab("Realizations") +
+    annotate("text", x = 10, y = max(long_realis$value)*1.1, label = specifications[i])+ 
+    theme(plot.title = element_text(hjust = 0.5), legend.position = "none")
+  
+  #Save plot
+  #name = paste("../figures/sample1conf",i,".pdf", sep = "")
+  #ggsave(name, plot = plot, device = NULL, path = NULL,
+    #     scale = 1, width = 5.5, height = 4, units = "in",
+     #   dpi = 300, limitsize = TRUE)
+  
+  #print(plot)
+  plots[[i]] = plot
+}
 
+#Display more than one plot at once:
+#plotGrid1 = grid.arrange(grobs = plots[1:4], ncol = 2)
+#plotGrid2 = grid.arrange(grobs = plots[5:8], ncol = 2)
 
-sampleDF = as.data.frame(t(sample))
-sampleDF$L = L
-#Changing format to be able to plot all realisations
-long_sample = melt(data, id = "L")
-
-#Display
-ggplot(long_data,
-       aes(x=L, y=value, colour=variable)) +
-  geom_line()+
-  ggtitle("Realizations of 1D Gaussian RF") +
-  xlab("x")+
-  ylab("sampled value") +
-  #annotate("text", x = 5, y = max(long_data$value), label = "some text")+
-  theme(plot.title = element_text(hjust = 0.5), legend.position = "none")

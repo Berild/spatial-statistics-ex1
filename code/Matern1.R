@@ -7,17 +7,17 @@ library(reshape2)
 
 distance=0:0.01:49/10
 nuMat=c(1,3)
-CorrelationFunctionMat1=Matern(distance , range = 1, nu=nuMat[1]) #What should range be?
-CorrelationFunctionMat2=Matern(distance , range = 1, nu=nuMat[2])
+CorrMatern1=Matern(distance , range = 1, nu=nuMat[1]) #What should range be?
+CorrMatern2=Matern(distance , range = 1, nu=nuMat[2])
 
 nuExp = c(1,1.9)
-CorrelationFunctionExp1 = exp(-distance^nuExp[1])
-CorrelationFunctionExp2 = exp(-distance^nuExp[2])
+CorrExp1 = exp(-distance^nuExp[1])
+CorrExp2 = exp(-distance^nuExp[2])
 
 #plot(distance,CorrelationFunction,type="l")
 #lines(distance,CorrelationFunction,type="l",col="blue")
-CorrFuncDF = data.frame(distance, CorrelationFunctionMat1, CorrelationFunctionMat2,
-           CorrelationFunctionExp1, CorrelationFunctionExp2)
+CorrFuncDF = data.frame(distance, CorrMatern1, CorrMatern2,
+           CorrExp1, CorrExp2)
 longDF = melt(CorrFuncDF, id = 'distance')
 
 ggplot(longDF) + 

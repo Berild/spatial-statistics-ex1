@@ -1,6 +1,8 @@
 # Created by https://www.gitignore.io/api/r,vim
 # Edit at https://www.gitignore.io/?templates=r,vim
 
+.DS_Store
+
 ### R ###
 # History files
 .Rhistory

@@ -1,5 +1,5 @@
-library(fields); 
-library(geoR);  
+library(fields)
+library(geoR) 
 library(MASS)
 #install.packages("akima")
 library(akima)

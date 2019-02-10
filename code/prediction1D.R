@@ -115,7 +115,7 @@ plots[[2]]=
   geom_line(data = predictionNum2, aes(x = L, y = predictionNum2$pred), inherit.aes = FALSE)+
   xlab("x")+
   ylab("Posterior values") +
-  annotate("text", x = 10, y = max(long_realis2$value)*1.1, label = specifications[1])+
+  annotate("text", x = 10, y = max(long_realis2$value)*1.1, label = specifications[2])+
   theme(plot.title = element_text(hjust = 0.5), legend.position = "none")
 
 

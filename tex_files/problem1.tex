@@ -180,9 +180,30 @@ The Gaussian RF is a conjugate prior class to the Gauss-linear likelihood. Thus,
 For prediction, the posterior mean is commonly used. The associated $(1-\alpha)$ prediction interval is 
 $$\left[\vect{\mu_{r|d}}-z_{\alpha/2} \sqrt{diag(\matr{\Sigma_{r|d}})},\quad \vect{\mu_{r|d}}+z_{\alpha/2} \sqrt{diag(\matr{\Sigma_{r|d}})}\right].$$
 
+Predicted values with corresponding prediction intervals for the two measurement errors are shown in figure \ref{fig:predictions}.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/predictions.pdf}
+    \caption{Posterior mean and prediction intervals for two different measurment errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
+    \label{fig:predictions}
+\end{figure}
+
+The measurement error has an effect in the posterior predictions in several ways. The measurement errors means that different values can be drawn from the same system in the same positions, and the error affects both the mean and the variance in the posterior distribution. In particular, notice that when the measurement error $\sigma^2_{\epsilon} = 0$, the posterior mean in the measured positions matches the measured values in this places, and there is no uncertainty in these positions. The uncertainty increases with the distance from the measured positions.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}
-text text text
+
+The predictions from problem 1d) can be estimated by simulate realizations from the posterior distribution and computing the empirical mean and standard deviation from the realizations. 
+The result is shown in figure \ref{fig:postSamps}.
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/predictions.pdf}
+    \caption{Posterior mean and prediction intervals for two different measurment errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
+    \label{fig:postSamps}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{f)}

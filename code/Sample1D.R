@@ -7,36 +7,9 @@ library(ggplot2)
 library(reshape2) #melt
 library(gridExtra) #grid.arrange
 
-######################################################################
-#Grid
-n = 50
-L = 1:50
+#Specify prior
 
-#Specify expected value
-mu = 0
-E = matrix(rep(mu,50), ncol = 1)
-
-#Possible model parameters
-sigma2 = c(1,5)
-nu_m=c(1,3)
-nu_e = c(1,1.9)
-
-##########################################
-#Covariance matrix
-tau = rdist(L,L)/10
-
-CovMatPrior = function(tau, sigmasq, nu, func="m"){
-  if (tolower(func)== "e"){
-    corr = exp(-tau^nu)
-  }else if(tolower(func) == "m"){
-    corr = Matern(tau, range = 1, nu = nu) #What should range be?
-  }else{
-    warning("Unknown correlation function")
-    return(NULL)
-  }
-  Cov = sigmasq*corr
-  return(Cov)
-}
+source('SpecifyPrior1D.R')
 
 ############################
 #Make vectors of parameter values to iterate through
@@ -62,7 +35,7 @@ which_save = nsamps
 ###########################################
 plots = list()
 for(i in 1:8){
-  Cov = CovMatPrior(tau,sigmaLong[i], nuLong[i], funcLong[i])
+  Cov = covMatPrior(tau,sigmaLong[i], nuLong[i], funcLong[i])
   realizations = mvrnorm(nsamps, E, Cov)
   ############################
   #Save one realization for sigma^2 = 5 and the others as specified

@@ -25,6 +25,7 @@ covLik1 = diag(sigmad[1], ncol = length(x), nrow=length(x))
 covLik2 = diag(sigmad[2], ncol = length(x), nrow=length(x))
 
 #Draw measurements
+set.seed(1)
 d1 = simulateMeasurements(savedRealization, H, sigmad[1])
 d2 = simulateMeasurements(savedRealization, H, sigmad[2])
 

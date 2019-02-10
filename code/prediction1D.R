@@ -69,13 +69,17 @@ predictedNum2 = colMeans(postSamps2)
 stdDevNum1 = sqrt((1/(nsamps -1))*colSums((sweep(postSamps1,2,predictedNum1))^2))
 stdDevNum2 = sqrt((1/(nsamps -1))*colSums((sweep(postSamps2,2,predictedNum2))^2))
 
+#How is the prediction interval now?
+#t-distributed?
+t = qt(alpha/2, df = nsamps-1, lower.tail = FALSE)
+
 predictionNum1 = data.frame(pred = predictedNum1, 
-                            lower = predictedNum1 - z*stdDevNum1,
-                            upper = predictedNum1 + z*stdDevNum1)
+                            lower = predictedNum1 - t*stdDevNum1,
+                            upper = predictedNum1 + t*stdDevNum1)
 
 predictionNum2 = data.frame(pred = predictedNum2, 
-                            lower = predictedNum2 - z*stdDevNum2,
-                            upper = predictedNum2 + z*stdDevNum2)
+                            lower = predictedNum2 - t*stdDevNum2,
+                            upper = predictedNum2 + t*stdDevNum2)
 
 #Displaying:
 

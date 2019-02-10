@@ -74,12 +74,12 @@ stdDevNum2 = sqrt((1/(nsamps -1))*colSums((sweep(postSamps2,2,predictedNum2))^2)
 t = qt(alpha/2, df = nsamps-1, lower.tail = FALSE)
 
 predictionNum1 = data.frame(pred = predictedNum1, 
-                            lower = predictedNum1 - t*stdDevNum1,
-                            upper = predictedNum1 + t*stdDevNum1)
+                            lower = predictedNum1 - t*stdDevNum1*sqrt(1+1/nsamps),
+                            upper = predictedNum1 + t*stdDevNum1*sqrt(1+1/nsamps))
 
 predictionNum2 = data.frame(pred = predictedNum2, 
-                            lower = predictedNum2 - t*stdDevNum2,
-                            upper = predictedNum2 + t*stdDevNum2)
+                            lower = predictedNum2 - t*stdDevNum2*sqrt(1+1/nsamps),
+                            upper = predictedNum2 + t*stdDevNum2*sqrt(1+1/nsamps))
 
 #Displaying:
 

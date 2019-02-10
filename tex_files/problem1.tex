@@ -79,7 +79,7 @@ This is displayed for the given parameter values in figure \ref{fig:variograms}.
 \paragraph{b)}
 The discretized prior Gaussian model has pdf
 \begin{equation}
-    \vect{r} \sim p(\vect{r}) = \phi_n(\vect{r}; \mu_r \vect(i)_n, \sigma_r^2\matr{\Sigma}_r^{\rho}),
+    \vect{r} \sim p(\vect{r}) = \phi_n(\vect{r}; \mu_r \vect{i}_n, \sigma_r^2\matr{\Sigma}_r^{\rho}),
 \end{equation}
 where $n = 50$ is the number of grid points in $\text{L},$ $\vect{i}_n$ is a $n$-vector with $1$s and $\matr{\Sigma}_r^{\rho}$ is the correlation matrix for the grid points, defined from the chosen spatial correlation function applied to all $\tau$s in the system.
 
@@ -146,12 +146,39 @@ The influence of the parameter values are illustrated in the plots. Large $\sigm
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{c)}
 Now assume the spatial variable is observed as 
+\begin{align*}
+    \{&d(x): x \in \{10,25,30\} \subset \text{L} \}\\
+    &d(x) = r(x) + \epsilon(x),
+\end{align*}
+where the measurement errors, $\epsilon(\cdot)$, are independent and identically distributed.
 \begin{equation*}
-    \{d(x): x \in \{10,25,30\} \subset \text{L} \}.
+    \epsilon(x) \sim \phi(\epsilon; 0,\sigma^2_{\epsilon}).
 \end{equation*}
+$r(x)$ and $\epsilon(x^\prime)$ are also independent for all $x,x^\prime$.
+
+The likelihood function for this model is the Gauss-linear likelihood.
+\begin{equation}
+    [\vect{d}|\vect{r}] = \matr{H}\vect{r} + \vect{\epsilon} \sim p(\vect{d}|\vect{r}) = 
+    \phi_m\left(\vect{d};\matr{H}\vect{r}, \matr{\Sigma}_{d|r}\right).
+\end{equation}
+$m$ is the dimension of $\vect{d}|\vect{r}$, $\matr{H}$ is the observation matrix with dimensions $m \times n$, and $\matr{\Sigma}_{d|r} = \sigma^2_{\epsilon} \matr{I}_m$, $\matr{I}_m$ being the $m \times m$ identity matrix.
+
+The likelihood $p(\vect{d}|\vect{r})$ would be a pdf as a function of the data, but in this setting, the data is known and constant and $\vect{r}$ is unknown. Thus, the likelihood should be considered a function of $\vect{r}$. As a function of $\vect{r}$, it does noe necessarily integrate to $1$, and hence it is not a pdf. Because of this, there is no need to normalize the likelihood function.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
-text text text
+To simulate that $\{d(x): x \in \{10,25,30\} \subset \text{L} \}$  is observed, one realization from problem 1b) is saved. The realization is chosen from the prior with parameter combination $\sigma^2 = 5$ and Powered exponential correlation function with $\nu_r = 1.9$. We also let $\sigma^2_{\epsilon} \in \{0,0.25\}$.
+
+The Gaussian RF is a conjugate prior class to the Gauss-linear likelihood. Thus, the posterior distribution is also a Gaussian RF. The Gaussian distribution is completely determined by the mean and the variance. For the discretized version we have
+\begin{align*}
+    [\vect{r}|\vect{d}] &\sim p(\vect{r}|\vect{d}) = \phi_n\left(\vect{r};\vect{\mu}_{r|d}, \matr{\Sigma}_{r|d}\right), \text{ with }\\
+    \vect{\mu}_{r|d} &= \mu_r\vect{i}_n + \sigma^2_r\matr\Sigma^{\rho}_r\matr{H}^T \left[\sigma^2_r\matr{H}\matr\Sigma^{\rho}_r\matr{H}^T + \matr{\Sigma}_{d|r}\right]^{-1}[\vect{d}-\mu_r\matr{H}\vect{i}_n]\\
+    \matr{\Sigma}_{r|d} &= \sigma^2_r\matr\Sigma^{\rho}_r - \sigma^2_r\matr\Sigma^{\rho}_r\matr{H}^T \left[\sigma^2_r\matr{H}\matr\Sigma^{\rho}_r\matr{H}^T + \matr{\Sigma}_{d|r}\right]^{-1} \sigma^2_r\matr{H} \matr\Sigma^{\rho}_r
+\end{align*}
+
+For prediction, the posterior mean is commonly used. The associated $(1-\alpha)$ prediction interval is 
+$$\left[\vect{\mu_{r|d}}-z_{\alpha/2} \sqrt{diag(\matr{\Sigma_{r|d}})},\quad \vect{\mu_{r|d}}+z_{\alpha/2} \sqrt{diag(\matr{\Sigma_{r|d}})}\right].$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}

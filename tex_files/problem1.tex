@@ -185,7 +185,7 @@ Predicted values with corresponding prediction intervals for the two measurement
 \begin{figure}
     \centering
     \includegraphics{figures/predictions.pdf}
-    \caption{Posterior mean and prediction intervals for two different measurment errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
+    \caption{Posterior mean and prediction intervals for two different measurement errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
     \label{fig:predictions}
 \end{figure}
 
@@ -195,14 +195,18 @@ The measurement error has an effect in the posterior predictions in several ways
 \paragraph{e)}
 
 The predictions from problem 1d) can be estimated by simulate realizations from the posterior distribution and computing the empirical mean and standard deviation from the realizations. 
+
+\textbf{The interval will be different. How?}
+
 The result is shown in figure \ref{fig:postSamps}.
 
 \begin{figure}
     \centering
-    \includegraphics{figures/predictions.pdf}
-    \caption{Posterior mean and prediction intervals for two different measurment errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
+    \includegraphics{figures/posteriorSamps.pdf}
+    \caption{$100$ realizations from the posterior distribution for two different measurement errors when measured in $x = \{10,25,30\}$. Empirical estimated means and prediction intervals are printed on top of the realizations.}
     \label{fig:postSamps}
 \end{figure}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -39,9 +39,13 @@ The analytical solution using optimization with lagrange multipliers is
 \begin{equation*}
     \vect{\hat{\alpha}} = [\matr{\Sigma}_g^\rho]^{-1}\left[\vect{\rho}_0 - \matr{G}_g^T [\matr{G}_g[\matr{\Sigma}_g^\rho]^{-1}\matr{G}_g^T]^{-1}[\matr{G}_g[\matr{\Sigma}_g^\rho]^{-1}\vect{\rho}_0 - \vect{g}(\vect{x}_0)]\right]
 \end{equation*}
-which yields the universal kriging predictor
+which yields the universal kriging predictor and the associated prediction variance at an
+arbitrary location $\vect{x}_0 \in \mathcal{D}$.
 \begin{equation}
-    \hat{r}_0 = \vect{\hat{\alpha}}^T \vect{r}_{n_g}
+    \begin{array}{rcl}
+         \hat{r}_0 & = & \vect{\hat{\alpha}}^T \vect{r}_{n_g}&  \\
+         \sigma_{\hat{r}}^2 & = & \sigma_r^2\left[1-2\vect{\hat{\alpha}}^T \vect{\rho}_0 + \vect{\hat{\alpha}}^T\matr{\Sigma}_g^\rho \vect{\hat{\alpha}}\right] 
+    \end{array}
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{c)}

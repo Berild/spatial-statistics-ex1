@@ -1,3 +1,8 @@
+rm(list=ls())
+library(fields)
+library(MASS)
+library(ggplot2)
+
 #Make prior, draw realisation and locations to measure.
 
 ###########################################################################
@@ -22,8 +27,8 @@ L = buildGrid(N1, N2)
 
 buildPrior = function(L, mu_r, sigma_r, tau, xi){
   N = L$N1*L$N2
-  tau = rdist(L$vec, L$vec)
-  
+  tau = rdist(cbind(L$x1, L$x2))
+
   Sigma = sigma_r*exp(-(1/xi)*tau)
   E = rep(mu_r, N)
   prior = list(Sigma = Sigma, E = E)
@@ -39,19 +44,27 @@ prior = buildPrior(L, mu_r, sigma_r, tau, xi)
 
 ###########################################################################
 #Draw realization
-library(mvtnorm)
 set.seed(12)
 realization = mvrnorm(n=1, mu = prior$E, Sigma = prior$Sigma)
 
 
 #Display realization
 #Remove stat_contour if you don't want to display the contour lines
-ggplot(data.frame(x1 = L$x1, x2 = L$x2, realization = realization),
+plot = ggplot(data.frame(x1 = L$x1, x2 = L$x2, realization = realization),
        aes(x=x1, y=x2)) + geom_raster(aes(fill = realization)) +
   scale_fill_continuous(high='blue 4', low='white') +
   stat_contour(aes(z = realization), col= "grey 50") +
   ggtitle("Sample from prior model") +
   theme(plot.title = element_text(hjust = 0.5))
+
+#Save plot
+name = paste("../figures/3a_realization.pdf", sep = "")
+ggsave(name, plot = plot, device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
+#Show plot
+print(plot)
 
 ###########################################################################
 #Draw positions to measure
@@ -61,7 +74,7 @@ randomPositions= function(num, L){
   positions = ceiling(N*runif(num))
   return(positions)
 }
-  
+
 obsMatrix = function(positions, L){
   N=L$N1*L$N2
   H = matrix(0,ncol = N, nrow = length(positions))
@@ -90,7 +103,7 @@ ggplot(data.frame(x1 = L$x1, x2 = L$x2, realization = realization),
 #Draw exact measurements in these positions
 simulateMeasurements = function(r_true, obsMat, measure_error){
   m = nrow(obsMat)
-  measurements = obsMat%*%r_true + measure_error*rnorm(m) 
+  measurements = obsMat%*%r_true + measure_error*rnorm(m)
   return(measurements)
 }
 

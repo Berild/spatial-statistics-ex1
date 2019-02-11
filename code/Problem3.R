@@ -2,6 +2,7 @@ rm(list=ls())
 library(fields)
 library(MASS)
 library(ggplot2)
+library(geoR)
 
 #Make prior, draw realisation and locations to measure.
 
@@ -43,28 +44,65 @@ xi = 15
 prior = buildPrior(L, mu_r, sigma_r, tau, xi)
 
 ###########################################################################
-#Draw realization
+# Draw realization
 set.seed(12)
 realization = mvrnorm(n=1, mu = prior$E, Sigma = prior$Sigma)
 
 
-#Display realization
-#Remove stat_contour if you don't want to display the contour lines
-plot = ggplot(data.frame(x1 = L$x1, x2 = L$x2, realization = realization),
+# Display realization
+# Remove stat_contour if you don't want to display the contour lines
+plot_realization = ggplot(data.frame(x1 = L$x1, x2 = L$x2, realization = realization),
        aes(x=x1, y=x2)) + geom_raster(aes(fill = realization)) +
   scale_fill_continuous(high='blue 4', low='white') +
   stat_contour(aes(z = realization), col= "grey 50") +
   ggtitle("Sample from prior model") +
   theme(plot.title = element_text(hjust = 0.5))
 
-#Save plot
+# Show plot
+print(plot_realization)
+
+# Save plot
 name = paste("../figures/3a_realization.pdf", sep = "")
-ggsave(name, plot = plot, device = NULL, path = NULL,
+ggsave(name, plot = plot_realization, device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)
 
-#Show plot
-print(plot)
+###########################################################################
+# Compute variogram and empirical variogram
+variogram = function(sigma, xi, tau) {
+  return(sigma_r - exp(-tau/xi))
+}
+
+coords = cbind(L$x1, L$x2)
+tau = unique(c(rdist(coords))) # unique distances
+gamma = variogram(sigma_r, xi, tau)
+gamma_empirical = variog(coords=coords, data=realization)
+
+# Plot variogram and empirical variogram
+df_var = data.frame(
+  tau=c(tau, gamma_empirical$u),
+  gamma=c(gamma, gamma_empirical$v),
+  var=c(
+    rep("Theoretical", length(tau)),
+    rep("Empirical", length(gamma_empirical$v))
+  )
+)
+
+plot_variogram = ggplot(df_var) +
+  geom_line(aes(x=tau, y=gamma, col=var)) +
+  ggtitle("Variogram function") +
+  labs(y="value", col="") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Show plot
+print(plot_variogram)
+
+# Save plot
+name = paste("../figures/3b_variogram.pdf", sep = "")
+ggsave(name, plot = plot_variogram, device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
 
 ###########################################################################
 #Draw positions to measure

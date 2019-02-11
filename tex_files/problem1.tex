@@ -50,17 +50,16 @@ The correlation functions for each $\nu_r$ are shown in figure \ref{fig:corrfunc
     \label{fig:corrfunc}
 \end{figure}
 
-The variogram function is
+\textcolor{red}{The variogram function is}
 %
 \begin{align*}
 \gamma_r(\tau)
 \coloneqq&\: \frac{1}{2} \Var \{ r(x) - r(x') \} \\
 =&\: \sigma_r^2 - \Cov\{r(x), r(x')\} \\
-=&\: \sigma_r^2[1 - \rho_r(\tau)]\, ,
+=&\: \sigma_r^2 - \rho_r(\tau) \, ,
 \end{align*}
 %
-i.e. 1 minus the correlation scaled by the variance.
-This is displayed for the given parameter values in figure \ref{fig:variograms}.
+i.e. the variance minus the covariance. This is displayed for the given parameter values in figure \ref{fig:variograms}.
 
 \begin{figure}
     \centering
@@ -68,10 +67,6 @@ This is displayed for the given parameter values in figure \ref{fig:variograms}.
     \caption{The variogram functions corresponding to Powered exponential and the Matern spatial correlation functions for some parameter values. The variance, $\\sigma^2$, is purely scaling the functions.}
     \label{fig:variograms}
 \end{figure}
-
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{b)}

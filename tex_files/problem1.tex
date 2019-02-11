@@ -43,8 +43,6 @@ Two possible correlation functions, $\rho_r(\tau)$, the Powered exponential and 
 
 The correlation functions for each $\nu_r$ are shown in figure \ref{fig:corrfunc}. We see that the correlation is 1 for $\tau = 0$ and goes to 0 as $\tau$ increases for all the function and parameter configurations, as desired.
 
-Cruical features for the spatial correlation function...?
-
 \begin{figure}
     \centering
     \includegraphics{figures/corrfunc.pdf}
@@ -66,7 +64,7 @@ This is displayed for the given parameter values in figure \ref{fig:variograms}.
 
 \begin{figure}
     \centering
-    \includegraphics{figures/variograms.pdf}
+    \includegraphics[scale=0.95]{figures/variograms.pdf}
     \caption{The variogram functions corresponding to Powered exponential and the Matern spatial correlation functions for some parameter values. The variance, $\\sigma^2$, is purely scaling the functions.}
     \label{fig:variograms}
 \end{figure}
@@ -87,7 +85,7 @@ Ten realizations for each of the eight different parameter combinations are disp
 
 The influence of the parameter values are illustrated in the plots. Large $\sigma^2$ means large variability in values, and the realizations vary more along the $y$-axis in these displays. Increased $\nu_r$ increases the correlation between space points, as shown in figure \ref{fig:corrfunc}. Thus, this results in smoother realizations, where changes are done more gradually.
 
-\begin{figure}[]
+\begin{figure}
 \centering
     \begin{subfigure}[H]{0.49\textwidth}
         \centering
@@ -115,7 +113,7 @@ The influence of the parameter values are illustrated in the plots. Large $\sigm
     \label{fig:prior_samp_exp}
 \end{figure}
 
-\begin{figure}[]
+\begin{figure}
 \centering
     \begin{subfigure}[H]{0.49\textwidth}
         \centering
@@ -184,7 +182,7 @@ Predicted values with corresponding prediction intervals for the two measurement
 
 \begin{figure}
     \centering
-    \includegraphics{figures/predictions.pdf}
+    \includegraphics[scale=0.95]{figures/predictions.pdf}
     \caption{Posterior mean and prediction intervals for two different measurement errors when measured in $x = \{10,25,30\}$. The measured values are shown in black dots.}
     \label{fig:predictions}
 \end{figure}
@@ -194,25 +192,46 @@ The measurement error has an effect in the posterior predictions in several ways
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}
 
-The predictions from problem 1d) can be estimated by simulate realizations from the posterior distribution and computing the empirical mean and standard deviation from the realizations. 
+The predictions from problem 1d) can be estimated by simulate realizations from the posterior distribution and computing the empirical means, $\vect{\hat\mu}_{r|d}$, and standard deviations ($\vect{\hat\sigma}^2_{r|d}$) from the realizations. 
 
-\textbf{The interval will be different. How?}
+Consider the prediction of one grid point in $L$, $y_i$. Then $y_i-\hat\mu_{r|d,i}$ is Gaussian distributed with $\text{E}[y_i-\hat\mu_{r|d,i}] = 0$ and $\text{Var}(y_i-\hat\mu_{r|d,i}) = \sigma^2_{r|d,i}(1+1/n)$, with $n$ being the number of simulations. Thus
 
-The result is shown in figure \ref{fig:postSamps}.
+\begin{align*}
+    &\frac{y_i - \hat\mu_{r|d,i}}{\sigma_{r|d,i}\sqrt{1+1/n}} \sim \phi(0,1)\\
+     &\frac{y_i - \hat\mu_{r|d,i}}{\hat\sigma_{r|d,i}\sqrt{1+1/n}} \sim t_{n-1}\\
+     \implies \hat{PI_{\alpha}} &= \left[\hat\mu_{r|d,i} - t_{n-1,\alpha/2}\cdot\hat\sigma_{r|d,i}\sqrt{1+1/n}, \hat\mu_{r|d,i} + t_{n-1,\alpha/2}\cdot \hat\sigma_{r|d,i}\sqrt{1+1/n}\right]
+\end{align*}
+
+
 
 \begin{figure}
     \centering
-    \includegraphics{figures/posteriorSamps.pdf}
+    \includegraphics[scale=0.95]{figures/posteriorSamps.pdf}
     \caption{$100$ realizations from the posterior distribution for two different measurement errors when measured in $x = \{10,25,30\}$. Empirical estimated means and prediction intervals are printed on top of the realizations.}
     \label{fig:postSamps}
 \end{figure}
 
-\textbf{Missing discussion}
+The realizations, empirical prediction and empirical prediction interval are shown in figure \ref{fig:postSamps}. The figure shows how the measurement error affects the posterior distribution and the realizations thereof. When the measurement error is $0$, there is not uncertainty in the measured points, and all realizations will have the same value in $x = \{10,25,30\}$. There is more variability in the realizations of the model where some measurement was present, as expected. The empirical mean depends on the realizations drawn, but with with increased number of realizations, the empirical mean will converge to the theoretical mean. The empirical prediction intervals are larger than the theoretical one, because of the larger tail in the t-distribution and added uncertainty. This can be seen on the scales of figure \ref{fig:postSamps} versus figure \ref{fig:predictions}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{f)}
-text text text
+Consider the following function on $\{r(x); x \in \text{D}\}$:
+\begin{equation}
+    A_r = \int_{\text{D}} I(r(x)>2)dx,
+\end{equation}
+with $I$ being the indicator function that is $1$ for $r(x)>2$ and $0$ otherwise.
 
+We will use the posterior model for $\{r(x); x \in \text{D}\}$ problem 1d)-e) where the $\sigma^2_{\epsilon} = 0$ and consider two estimators for $A_r$. One predictor is made from the $100$ simulated realizations, $r_i(x)$ in problem 1e),
+\begin{equation*}
+    \hat{A}_r = \frac{1}{100}\sum_{i=1}^{100} \left(\sum_{x \in L} I(r_i(x)>2)\right),
+\end{equation*}
+and the other estimates $A_r$ using the predicted spatial variable $\hat{r}(x)$ from 1d):
+\begin{equation*}
+    \tilde{A}_r = \sum_{x \in L} I(\hat{r}(x)>2).
+\end{equation*}
+
+\textbf{Also provide prediction interval for the first prediction} 
+\textbf{Compare predictions. Jensen's inequality.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{g)}
 text text text

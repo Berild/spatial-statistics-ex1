@@ -21,20 +21,68 @@ with(topo.interp, image  (x,y,z, breaks=breaks, col=colors))
 with(topo.interp,contour(x,y,z, levels=breaks, add=TRUE))
 points (topo.data, pch = 3)
 
+# Creating a geodata variable to use in geoR calculations
 topogeo <- as.geodata(topo.data)
+
+# Creating the grid of predicted values
 grd <-expand.grid(x = seq(from = 0, to = 315, by = 1), y = seq(from = 0, to = 315, by = 1))
-kc <- krige.conv(topogeo, locations = grd, krige = krige.control(type.krige = "ok",
-        cov.model = "sph",cov.pars = c(30000,60),nugget = 10000, trend.l = "1st", trend.d = "1st"))
-#kc1 <- krige.conv(topogeo, locations = data.frame(30,40), krige = krige.control(type.krige ="ok",
-#      cov.model = "exp",cov.pars =c(10,3.33),nugget = 0,trend.l = "1st", trend.d = "1st"))
-kc_melt = data.frame(x = grd[,1],y = grd[,2], z = kc$predict)
-ggplot(kc_melt, aes(x=x,y=y,fill = z)) + 
+
+
+kc2 <- krige.conv(topogeo, locations = grd, krige = krige.control(type.krige = "ok",
+        cov.model = "sph",cov.pars = c(2500,100),nugget = 0, trend.l = "2nd", trend.d = "2nd"))
+
+# Creating dataframe
+kc2.df = data.frame(x = grd[,1],y = grd[,2], pred = kc2$predict, se = sqrt(kc2$krige.var))
+
+# Plotting predicted values
+ggplot(kc2.df, aes(x=x,y=y,fill = pred)) + 
   geom_tile() + 
   scale_fill_gradient2(low = "navy",
                        mid = "yellow",
                        high = "red",
-                       midpoint = (max(kc_melt$z) + min(kc_melt$z))/2,
-                       limits = range(kc_melt$z),
+                       midpoint = (max(kc2.df$pred) + min(kc2.df$pred))/2,
+                       limits = range(kc2.df$pred),
+                       name = "prediction")+ 
+  xlab("x") +
+  ylab("y") + 
+  ggtitle("UK 2nd order expecation function") +
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/uk2.pdf", plot = last_plot(), device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
+
+# Plotting variance of predicted values
+ggplot(kc2.df, aes(x=x,y=y,fill = se)) + 
+  geom_tile() + 
+  scale_fill_gradient2(low = "yellow",
+                       high = "red",
+                       limits = range(kc2.df$se),
+                       name = "prediction")+ 
+  xlab("x") +
+  ylab("y") + 
+  ggtitle("UK Variance 2nd order expectation function") +
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/uk2se.pdf", plot = last_plot(), device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
+# --------------------------------------
+# 1st degree expectation function
+kc1 <- krige.conv(topogeo, locations = grd, krige = krige.control(type.krige = "ok",
+        cov.model = "sph",cov.pars = c(2500,100),nugget = 0, trend.l = "1st", trend.d = "1st"))
+
+# Creating dataframe
+kc1.df = data.frame(x = grd[,1],y = grd[,2], pred = kc2$predict, se = sqrt(kc2$krige.var))
+
+# Plotting predicted values
+ggplot(kc1.df, aes(x=x,y=y,fill = pred)) + 
+  geom_tile() + 
+  scale_fill_gradient2(low = "navy",
+                       mid = "yellow",
+                       high = "red",
+                       midpoint = (max(kc1.df$pred) + min(kc1.df$pred))/2,
+                       limits = range(kc1.df$pred),
                        name = "prediction")+ 
   xlab("x") +
   ylab("y") + 
@@ -45,3 +93,17 @@ ggsave("../figures/uk1.pdf", plot = last_plot(), device = NULL, path = NULL,
        dpi = 300, limitsize = TRUE)
 
 
+# Plotting variance of predicted values
+ggplot(kc1.df, aes(x=x,y=y,fill = se)) + 
+  geom_tile() + 
+  scale_fill_gradient2(low = "yellow",
+                       high = "red",
+                       limits = range(kc1.df$se),
+                       name = "prediction")+ 
+  xlab("x") +
+  ylab("y") + 
+  ggtitle("Universal Kriging Variance") +
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/uk1se.pdf", plot = last_plot(), device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)

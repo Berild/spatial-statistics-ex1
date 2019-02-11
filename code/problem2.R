@@ -43,3 +43,5 @@ ggplot(kc_melt, aes(x=x,y=y,fill = z)) +
 ggsave("../figures/uk1.pdf", plot = last_plot(), device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)
+
+

@@ -109,7 +109,7 @@ print(plot_variogram)
 # Save plot
 ggsave("../figures/3b_variogram.pdf",
        plot = plot_variogram, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
+       scale = 1, width = 5.5, height = 3, units = "in",
        dpi = 300, limitsize = TRUE)
 
 
@@ -182,7 +182,7 @@ print(plot_variogram_obs)
 # Save plot
 ggsave("../figures/3c_variogram_obs.pdf",
        plot = plot_variogram_obs, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
+       scale = 1, width = 5.5, height = 3, units = "in",
        dpi = 300, limitsize = TRUE)
 
 ###########################################################################
@@ -223,7 +223,7 @@ print(plot_variogram_est)
 # Save plot
 ggsave("../figures/3c_variogram_estimates.pdf",
        plot = plot_variogram_est, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
+       scale = 1, width = 5.5, height = 3, units = "in",
        dpi = 300, limitsize = TRUE)
 
 ###########################################################################
@@ -279,7 +279,7 @@ print(plot_variogram_obss)
 # Save plot
 ggsave("../figures/3d_variogram_obss.pdf",
        plot = plot_variogram_obss, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
+       scale = 1, width = 5.5, height = 3, units = "in",
        dpi = 300, limitsize = TRUE)
 
 # Estimate sigma_r^2 and xi_r
@@ -328,5 +328,5 @@ print(plot_variogram_ests)
 # Save plot
 ggsave("../figures/3d_variogram_estimatess.pdf",
        plot = plot_variogram_ests, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
+       scale = 1, width = 5.5, height = 3, units = "in",
        dpi = 300, limitsize = TRUE)

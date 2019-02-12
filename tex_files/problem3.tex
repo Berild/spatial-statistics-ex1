@@ -57,12 +57,30 @@ From these values we estimate the variogram function. They are displayed in figu
 \begin{figure}
     \centering
     \includegraphics[scale=0.95]{figures/3c_variogram_estimates.pdf}
-    \caption{!!!The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and the empirical variogram based on 36 exact randomly chosen observations of a realization.}
+    \caption{The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and estimated variograms based on estimates of $\sigma_r^2$ and $\xi_r$ using the whole realization and using 36 observations.}
     \label{fig:3c_variogram_estimates}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.95]{figures/3c_variogram_obs.pdf}
+    \caption{The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and the empirical variogram based on 36 exact randomly chosen observations of a realization.}
+    \label{fig:3c_variogram_obs}
+\end{figure}
+
+Now we consider $\sigma_r^2$ and $\xi_r$ to be unknown and estimate their values by maximum likelihood estimation. We do this for the full realization and the 36 exact observations. This gives $\sigma_r^2 \approx 2.220$ and $\xi_r \approx 19.950$ using the full realization, and $\sigma_r^2 \approx 2.374$ and $\xi_r \approx 20.558$ using the observations. 
+
+From these values we estimate the variogram function. They are displayed in figure~\ref{fig:3c_variogram_estimates}. The estimates are way more accurate and smooth than the empirical variograms. We can get a similarly smooth estimate by simulating several times and using the mean of the empirical variograms. This, however, takes a lot more time, and it is not possible if one doesn't know the true distribution and thus can't simulate repeatedly. For realizations of a higher resolution the empirical variogram would likely fare better.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.95]{figures/3c_variogram_estimates.pdf}
+    \caption{The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and estimated variograms based on estimates of $\sigma_r^2$ and $\xi_r$ using the whole realization and using 36 observations.}
+    \label{fig:3c_variogram_estimates}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}

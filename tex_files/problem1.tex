@@ -214,18 +214,40 @@ Consider the following function on $\{r(x); x \in \text{D}\}$:
 \begin{equation}
     A_r = \int_{\text{D}} I(r(x)>2)dx,
 \end{equation}
-with $I$ being the indicator function that is $1$ for $r(x)>2$ and $0$ otherwise.
+with $I$ being the indicator function that is $1$ for $r(x)>2$ and $0$ otherwise. Let $A_{r,d} = \sum_{x \in L} I(r(x)>2)$ be the discrete version of $A_r$.
 
-We will use the posterior model for $\{r(x); x \in \text{D}\}$ problem 1d)-e) where the $\sigma^2_{\epsilon} = 0$ and consider two estimators for $A_r$. One predictor is made from the $100$ simulated realizations, $r_i(x)$ in problem 1e),
+We will use the posterior model for $\{r(x); x \in \text{D}\}$ problem 1d)-e) where the $\sigma^2_{\epsilon} = 0$ and consider two predictors for $A_r$. One predictor is made from the $100$ simulated realizations, $\{r_i(x): x \in \text{L}, i \in [1,100]\}$, in problem 1e),
 \begin{equation*}
-    \hat{A}_r = \frac{1}{100}\sum_{i=1}^{100} \left(\sum_{x \in L} I(r_i(x)>2)\right),
+    \hat{A}_r = \frac{1}{100}\sum_{i=1}^{100} \left(\sum_{x \in L} I(r_i(x)>2)\right) := \frac{1}{100}\sum_{i=1}^{100} A_{r_i,d},
 \end{equation*}
 and the other estimates $A_r$ using the predicted spatial variable $\hat{r}(x)$ from 1d):
 \begin{equation*}
     \tilde{A}_r = \sum_{x \in L} I(\hat{r}(x)>2).
 \end{equation*}
 
-\textbf{Also provide prediction interval for the first prediction} 
+For the former predictor, we would also like to give the associated prediction variance. The variance of the predictor $\hat{A}_r$ is
+\begin{equation*}
+    \text{Var}(\hat{A}_{r}) = \frac{1}{100^2}\sum_{i=1}^{100}\text{Var}(A_{r_i,d}) = \frac{1}{100}\text{Var}(A_{r_i,d})
+\end{equation*}
+
+Now let $\hat{a}_r$ be the prediction of $\hat{A}_r$ given the 100 realizations from 1e), i.e a numerical value. Then the empirical variance for $A_{r,d}$ is 
+\begin{equation*}
+    \hat{\text{Var}}(A_{r,d}) = \frac{1}{100-1} \sum_{i=1}^{100}  (A_{r_i,d}-\hat{a}_r)^2, 
+\end{equation*}
+and the estimated variance of the predictor is 
+\begin{equation*}
+    \hat{\text{Var}}(\hat{A}_{r}) = \frac{1}{100}\hat{\text{Var}}(A_{r_i,d})
+\end{equation*}
+
+Inserting numerical values for the realizations gives the following predictions and the prediction variance:
+\begin{align*}
+    \hat{a}_r & = 22.07\\
+    \tilde{a}_r & = 19\\
+    \hat{\text{Var}}(\hat{A}_{r}) & = 0.3609\\
+\end{align*}
+
+We observe that the $\hat{a}_r > tilde{a}_r$. 
+Is it to be expected for the predictors in general that 
 \textbf{Compare predictions. Jensen's inequality.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{g)}

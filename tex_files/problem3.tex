@@ -35,17 +35,33 @@ This is shown in figure~\ref{fig:3b_variogram} together with the empirical vario
 \begin{figure}
     \centering
     \includegraphics[scale=0.95]{figures/3b_variogram.pdf}
-    \caption{The theoretical and empirical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a.}
-    \label{fig:3a_realization}
+    \caption{The theoretical variogram and empirical variogram from one realization of the discretized Gaussian RF given in \ref{sec:problem3}a.}
+    \label{fig:3b_variogram}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{c)}
-text text text
+We generate 36 locations uniformly randomly on the grid $\mathrm{L}$ and compute the empirical variogram based on the realization values in these locations. See figure~\ref{fig:3c_variogram_obs}It is less smooth than the empirical variogram computed from the entire realization, but still quite close to the theoretical variogram for small distances.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.95]{figures/3c_variogram_obs.pdf}
+    \caption{The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and the empirical variogram based on 36 exact randomly chosen observations of a realization.}
+    \label{fig:3c_variogram_obs}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
-text text text
+Now we consider $\sigma_r^2$ and $\xi_r$ to be unknown and estimate their values by maximum likelihood estimation. We do this for the full realization and the 36 exact observations. This gives $\sigma_r^2 \approx 2.220$ and $\xi_r = 19.950$ using the full realization, and $\sigma_r^2$ and $\xi_r$ using the observations. 
+
+From these values we estimate the variogram function. This is displayed in figure~\ref{fig:}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.95]{figures/3c_variogram_obs.pdf}
+    \caption{The theoretical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a and the empirical variogram based on 36 exact randomly chosen observations of a realization.}
+    \label{fig:3c_variogram_obs}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}

@@ -26,11 +26,11 @@ L = buildGrid(N1, N2)
 ###########################################################################
 #Build prior model
 
-buildPrior = function(L, mu_r, sigma_r, tau, xi){
+buildPrior = function(L, mu_r, sigma_sqrd, tau, xi){
   N = L$N1*L$N2
   tau = rdist(cbind(L$x1, L$x2))
 
-  Sigma = sigma_r*exp(-(1/xi)*tau)
+  Sigma = sigma_sqrd*exp(-tau/xi)
   E = rep(mu_r, N)
   prior = list(Sigma = Sigma, E = E)
   return(prior)
@@ -38,10 +38,10 @@ buildPrior = function(L, mu_r, sigma_r, tau, xi){
 
 #Specifications:
 mu_r = 0
-sigma_r = 2
+sigma_r_sqrd = 2
 xi = 15
 
-prior = buildPrior(L, mu_r, sigma_r, tau, xi)
+prior = buildPrior(L, mu_r, sigma_r_sqrd, tau, xi)
 
 ###########################################################################
 # Draw realization
@@ -69,14 +69,23 @@ ggsave(name, plot = plot_realization, device = NULL, path = NULL,
 
 ###########################################################################
 # Compute variogram and empirical variogram
-variogram = function(sigma, xi, tau) {
-  return(sigma_r - exp(-tau/xi))
+variogram = function(sigma_sqrd, xi, tau) {
+  return(sigma_sqrd * (1 - exp(-tau/xi)))
 }
 
 coords = cbind(L$x1, L$x2)
 tau = unique(c(rdist(coords))) # unique distances
-gamma = variogram(sigma_r, xi, tau)
+gamma = variogram(sigma_r_sqrd, xi, tau)
 gamma_empirical = variog(coords=coords, data=realization)
+
+gamma_empirical_mean = gamma_empirical$v
+k = 100
+for(i in 1:(k-1)) {
+  realization_i = mvrnorm(n=1, mu = prior$E, Sigma = prior$Sigma)
+  gamma_empirical_mean = gamma_empirical_mean + variog(coords=coords,
+                                                       data=realization_i)$v
+}
+gamma_empirical_mean = gamma_empirical_mean / k
 
 # Plot variogram and empirical variogram
 df_var = data.frame(
@@ -109,7 +118,7 @@ ggsave(name, plot = plot_variogram, device = NULL, path = NULL,
 
 randomPositions= function(num, L){
   N=L$N1*L$N2
-  positions = ceiling(N*runif(num))
+  positions = sample(1:N, num)
   return(positions)
 }
 
@@ -146,4 +155,33 @@ simulateMeasurements = function(r_true, obsMat, measure_error){
 }
 
 measurements = simulateMeasurements(realization, H, 0)
+
+# Compute empirical variogram from observations
+coords_obs = coords[pos,]
+gamma_empirical_obs = variog(coords=coords_obs, data=measurements)
+
+# Plot variogram and empirical variogram
+df_var_obs = data.frame(
+  tau=c(tau, gamma_empirical_obs$u),
+  gamma=c(gamma, gamma_empirical_obs$v),
+  var=c(
+    rep("Theoretical", length(tau)),
+    rep("Empirical", length(gamma_empirical_obs$v))
+  )
+)
+
+plot_variogram = ggplot(df_var_obs) +
+  geom_line(aes(x=tau, y=gamma, col=var)) +
+  ggtitle("Variogram function") +
+  labs(y="value", col="") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Show plot
+print(plot_variogram)
+
+# Save plot
+name = paste("../figures/3c_variogram_obs.pdf", sep = "")
+ggsave(name, plot = plot_variogram, device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
 

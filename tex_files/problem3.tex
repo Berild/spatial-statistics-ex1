@@ -27,15 +27,15 @@ The variogram function for the Gaussian RF is
 \gamma_r(\tau)
 \coloneqq&\: \frac{1}{2} \Var \{ r(x) - r(x') \} \\
 =&\: \sigma_r^2 - \Cov\{r(x), r(x')\} \\
-=&\: \sigma_r^2 - \exp\{-\tau/\xi_r\} \, .
+=&\: \sigma_r^2 [1 - \exp\{-\tau/\xi_r\}] \, .
 \end{align*}
 %
-This is shown in figure~\ref{fig:3b_variogram} together with the empirical variogram based on exact observations of the full realization in a). \textcolor{red}{Comment + caption}  
+This is shown in figure~\ref{fig:3b_variogram} together with the empirical variogram based on exact observations of the full realization in a). The empirical variogram is precise for small distances, but differs from the theoretical variogram for larger distances. This is not surprising, since there is less data for higher distances.
 
 \begin{figure}
     \centering
     \includegraphics[scale=0.95]{figures/3b_variogram.pdf}
-    \caption{!!!One realization of the discretized Gaussian RF given in \ref{sec:problem3}a.}
+    \caption{The theoretical and empirical variogram of the discretized Gaussian RF given in \ref{sec:problem3}a.}
     \label{fig:3a_realization}
 \end{figure}
 

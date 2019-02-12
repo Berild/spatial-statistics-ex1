@@ -50,16 +50,16 @@ The correlation functions for each $\nu_r$ are shown in figure \ref{fig:corrfunc
     \label{fig:corrfunc}
 \end{figure}
 
-\textcolor{red}{The variogram function is}
+The variogram function is
 %
 \begin{align*}
 \gamma_r(\tau)
 \coloneqq&\: \frac{1}{2} \Var \{ r(x) - r(x') \} \\
 =&\: \sigma_r^2 - \Cov\{r(x), r(x')\} \\
-=&\: \sigma_r^2 - \rho_r(\tau) \, ,
+=&\: \sigma_r^2[1 - \rho_r(\tau)] \, ,
 \end{align*}
 %
-i.e. the variance minus the covariance. This is displayed for the given parameter values in figure \ref{fig:variograms}.
+i.e. one minus the covariance scaled by the variance. This is displayed for the given parameter values in figure \ref{fig:variograms}.
 
 \begin{figure}
     \centering

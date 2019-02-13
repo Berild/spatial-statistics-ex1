@@ -13,6 +13,7 @@ The discretized random field (RF) is
     \{r(x): x \in \text{L}\}.
 \end{equation*}
 
+%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{a)}
 A function $c(\vect{\tau}) : \R^q \rightarrow \R$ is positive definite (non-negative definite, to be precise) for $\vect{\tau} \in \R^q$ if
 %
@@ -39,9 +40,9 @@ Now assume that $\sum_{i=1}^n \sum_{j=1}^n \alpha_i \alpha_j \rho_r(\tau) < 0$ f
 %
 But the variance of a weighted sum of random variables is non-negative, so this is a contradiction. Thus the correlation function needs to be positive definite.
 
-Two possible correlation functions, $\rho_r(\tau)$, the Powered exponential and the Matern. The functions take values for $\tau$, and a parameter $\nu_r$. Let $\nu_r \in \{1,3\}$ for the Matern function and $\nu_r \in \{1,1.9\}$ for Powered exponential. 
+Two possible correlation functions, $\rho_r(\tau)$, are the Powered exponential and the Matern. The functions take values for $\tau$, and a parameter $\nu_r$. Let $\nu_r \in \{1,3\}$ for the Matern function and $\nu_r \in \{1,1.9\}$ for Powered exponential. 
 
-The correlation functions for each $\nu_r$ are shown in figure \ref{fig:corrfunc}. We see that the correlation is 1 for $\tau = 0$ and goes to 0 as $\tau$ increases for all the function and parameter configurations, as desired.
+The correlation functions for each $\nu_r$ are shown in figure \ref{fig:corrfunc}. We see that the correlation is 1 for $\tau = 0$, which is a criterium for the correlation functions. Also, the correlation goes to 0 as $\tau$ increases for all four displayed functions. This means, values far from each other will be independent, and the stationary Gaussian Field will be ergodic.
 
 \begin{figure}
     \centering
@@ -241,20 +242,30 @@ and the estimated variance of the predictor is
 
 Inserting numerical values for the realizations gives the following predictions and the prediction variance:
 \begin{align*}
-    \hat{a}_r & = 22.07\\
+    \hat{a}_r & = 21.83\\
     \tilde{a}_r & = 19\\
-    \hat{\text{Var}}(\hat{A}_{r}) & = 0.3609\\
+    \hat{\text{Var}}(\hat{A}_{r}) & = 0.3535\\
 \end{align*}
 
 We observe that the $\hat{a}_r > \tilde{a}_r$. 
 Is it to be expected for the predictors in general that $\hat{A}_r > \tilde{A}_r$? 
 
-Jensen's inequality states that for convex functions $g(X)$, the following inequality holds: 
+Jensen's inequality states that for convex functions $g(Y)$, the following inequality holds: 
 \begin{equation*}
-    \text{E}(g(X)) \geq g(E(X)).
+    \text{E}[g(Y)] \geq g(E[Y]).
 \end{equation*}
 
-\textbf{missing argument}
+As $\hat{r}(x) = \text{E}[r(x)|d]$, $\quad \tilde{A}_r = g(\text{E}[r(x)|d])$ with $g(Y) = \sum_{x \in L} I(Y(x)>2)$. Also, $\hat{A}_r = \text{mean}_i(g(r_i(x)))$, which is a common estimator for $\text{E}[g(r(x))]$.
+Thus, if $\sum_{x \in L} I(Y(x)>2)$ is a convex function, one would expect $\hat{A}_r > \tilde{A}_r$.
+
+\textbf{Do we have a convex function?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{g)}
-text text text
+In this problem, we have seen how parameter choices in the prior and the accuracy of measurements for the likelihood affect the posterior distribution we end up with. The $nu$-parameter in the correlation function determines how smooth the prior distribution is, which also affects the characteristics of the posterior distribution. 
+
+The measurement error tells how much we can trust the measured values, which is reflected in the posterior variance in these points and thus how much realizations of the posterior distribution are allowed to differ from the measured values.
+
+We have seen that analytically computed predictions and simulated approximation gives similar result, but the analytical prediction will always be more accurate and has smaller uncertainty. In addition, the prediction for the posterior distribution is the posterior mean, and we use this when we sample from the posterior. Thus we do the same computations in both cases, and there is no reason to do the numerical approximation. 
+
+However, when analytical computations become non-trivial, it is good to be able to do numerical approximations instead.
+

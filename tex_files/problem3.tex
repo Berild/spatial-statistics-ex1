@@ -83,4 +83,8 @@ Figure~\ref{fig:3d_variogram_estimatess} shows estimated variograms using estima
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}
-In this problem we have seen that we can estimate parameters of a Guassian RF with an exponential correlation function quite accurately from only few realizations. We have also seen that it may be beneficiary to use estimated parameters to estimate variograms rather than use empirical variograms, and so probably also for correlations. That is, if one knows the theoretical variogram (or correlation function) in the first place.
+In this problem we have seen that we can estimate parameters of a Gaussian RF with an exponential correlation function quite accurately from only few realizations. We have also seen that it may be beneficiary to use estimated parameters to estimate variograms rather than use empirical variograms, and so probably also for correlations. That is, if one knows the theoretical variogram (or correlation function) in the first place.
+
+An important thing to note is that for random fields where the correlation depends only on the distance between points, the estimates of the correlation are more accurate for short distances. This might not be too problematic though, since the correlation usually decreases with distance.
+
+Furthermore, we have seen that when increasing the number of observations to get better estimates, the factor of the number of observations before and after the increase is more important than how many observations one adds. So it is, not very surprisingly, easier to increase the accuracy of estimates by gathering more data when we only have a few observations.

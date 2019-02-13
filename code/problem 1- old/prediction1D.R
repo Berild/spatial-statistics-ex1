@@ -51,9 +51,9 @@ plots[[2]] = ggplot(prediction2, aes(x = L)) +
 
 plotGrid = grid.arrange(grobs = plots, nrow = 2)
 
-ggsave("../figures/predictions.pdf", plot = plotGrid, device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 2*4, units = "in",
-       dpi = 300, limitsize = TRUE)
+#ggsave("../figures/predictions.pdf", plot = plotGrid, device = NULL, path = NULL,
+#       scale = 1, width = 5.5, height = 2*4, units = "in",
+#       dpi = 300, limitsize = TRUE)
 
 ############################################################
 #Numerical approximation
@@ -121,6 +121,26 @@ plots[[2]]=
 
 plotGrid = grid.arrange(grobs = plots, nrow = 2)
 
-ggsave("../figures/posteriorSamps.pdf", plot = plotGrid, device = NULL, path = NULL,
-      scale = 1, width = 5.5, height = 2*4, units = "in",
-      dpi = 300, limitsize = TRUE)
+#ggsave("../figures/posteriorSamps.pdf", plot = plotGrid, device = NULL, path = NULL,
+#      scale = 1, width = 5.5, height = 2*4, units = "in",
+#      dpi = 300, limitsize = TRUE)
+
+################################################################
+#Problem 1f)
+#Using realizations without measurement errors.
+realizations = postSamps1
+N = nrow(realizations)
+Ahat = mean(rowSums(realizations>2))
+
+#Need prediction variance
+varA = (1/(N-1))*sum((rowSums(realizations>2)-Ahat)^2)
+#var(rowSums(realizations>2) gives the same :) 
+varAhat = varA/100
+
+
+#Using posterior Mean
+Atilde = sum(posterior1$postMean>2)
+
+
+
+

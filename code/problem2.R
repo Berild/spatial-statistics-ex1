@@ -40,12 +40,18 @@ kc2.df = data.frame(x = grd[,1],y = grd[,2], pred = kc2$predict, se = sqrt(kc2$k
 # Plotting predicted values
 kc2.plot.pred <- ggplot(kc2.df, aes(x=x,y=y,fill = pred)) + 
   geom_tile() + 
-  scale_fill_gradient2(low = "navy",
-                       mid = "yellow",
-                       high = "red",
+  scale_fill_gradient2(low = "green3",
+                       mid = "sandybrown",
+                       high = "white",
                        midpoint = (max(kc2.df$pred) + min(kc2.df$pred))/2,
                        limits = range(kc2.df$pred),
                        name = "prediction")+ 
+  geom_contour(aes(x = x, y =y, z = pred), 
+               stat = "contour", 
+               position = "identity", 
+               lineend = "butt", 
+               linejoin = "round",
+               color = "gray52") + 
   xlab("x") +
   ylab("y") + 
   ggtitle("UK 2nd order") +
@@ -85,12 +91,18 @@ kc1.df = data.frame(x = grd[,1],y = grd[,2], pred = kc2$predict, se = sqrt(kc2$k
 # Plotting predicted values
 kc1.plot.pred <- ggplot(kc1.df, aes(x=x,y=y,fill = pred)) + 
   geom_tile() + 
-  scale_fill_gradient2(low = "navyblue",
-                       mid = "yellow",
-                       high = "red",
+  scale_fill_gradient2(low = "green3",
+                       mid = "sandybrown",
+                       high = "white",
                        midpoint = (max(kc1.df$pred) + min(kc1.df$pred))/2,
                        limits = range(kc1.df$pred),
                        name = "prediction")+ 
+  geom_contour(aes(x = x, y =y, z = pred), 
+               stat = "contour", 
+               position = "identity", 
+               lineend = "butt", 
+               linejoin = "round",
+               color = "gray52") + 
   xlab("x") +
   ylab("y") + 
   ggtitle("UK 1st order") +
@@ -121,9 +133,7 @@ ggsave("../figures/uk1se.pdf", plot = last_plot(), device = NULL, path = NULL,
 
 # multiplot of everything
 multiplot(kc1.plot.pred, kc1.plot.se, kc2.plot.pred, kc2.plot.se, cols = 2)
-ggsave("../figures/ukmulti.pdf", plot = last_plot(), device = NULL, path = NULL,
-       scale = 1, width = 5.5, height = 4, units = "in",
-       dpi = 300, limitsize = TRUE)
+
 
 
 # ----------------------------------------------

@@ -1,12 +1,11 @@
 \paragraph{a)}
-We have 52 observations contained in the domain $\mathcal{D} = (0,315)x(0,315)$.
-
+We have 52 observations contained in the domain $\mathcal{D} = (0,315)x(0,315)$. In \ref{fig:terrain2a} we see a non-stationary RF, based on the fact that the mean changes with the position of reference. 
 
 \begin{figure}[htb]
     \centering
     \includegraphics{figures/terrain2a.pdf}
-    \caption{The Powered exponential and the Matern spatial correlation functions for some parameter values.}
-    \label{fig:corrfunc}
+    \caption{Contour plot with a heat-map of the interpolated observed data in $\mathcal{D}$}
+    \label{fig:terrain2a}
 \end{figure}
 
 
@@ -24,7 +23,7 @@ with $\vect{g}(\vect{x}) = (g_1(\vect{x}), ... g_{n_g}(\vect{x}))$ a vector of k
 \begin{equation}
     \hat{r}_0 = \vect{\alpha}^T\vect{r}_{n_g},
 \end{equation}
-with $\vect{alpha} = (\alpha_1, ..., \alpha_{n_g})$ being the weights. 
+with $\vect{\alpha} = (\alpha_1, ..., \alpha_{n_g})$ being the weights. 
 The predictor error needs to be unbiased, which mean that the expected value of the error must be zero, giving
 \begin{equation*}
 \begin{array}{rcl}
@@ -63,6 +62,19 @@ Let the reference variable $\vect{x} \in \mathcal{D} \subset \mathbb{R}^2$ be $\
     \E[r(\vect{x})] = \vect{g}(\vect{x})^T \vect{\beta}_r = \beta_r^1 + x_v \beta_r^2 + x_h \beta_r^3 + x_v x_h \beta_r^4 + x_v^2 \beta_r^5 + x_h^2 \beta_r^6
 \end{equation*}
 
+\begin{figure}[htb]
+    \centering
+    \includegraphics{figures/uk2.pdf}
+    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)x(0,315)$.}
+    \label{fig:uk2}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics{figures/uk2se.pdf}
+    \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)x(0,315)$.}
+    \label{fig:uk2se}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
 text text text

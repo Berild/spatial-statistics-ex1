@@ -131,10 +131,6 @@ ggsave("../figures/uk1se.pdf", plot = last_plot(), device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)
 
-# multiplot of everything
-multiplot(kc1.plot.pred, kc1.plot.se, kc2.plot.pred, kc2.plot.se, cols = 2)
-
-
 
 # ----------------------------------------------
 # calculation of probablities d-f

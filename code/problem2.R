@@ -136,3 +136,6 @@ ggsave("../figures/uk1se.pdf", plot = last_plot(), device = NULL, path = NULL,
 # calculation of probablities d-f
 
 pnorm(700, mean = kc2.df$pred[(kc2.df$x==100)&(kc2.df$y==100)], sd = (kc2.df$se[(kc2.df$x==100)&(kc2.df$y==100)]),lower.tail = FALSE)
+
+alt = 1.28*sqrt(kc2.df$se[(kc2.df$x==100)&(kc2.df$y==100)])+kc2.df$pred[(kc2.df$x==100)&(kc2.df$y==100)]
+alt

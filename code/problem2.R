@@ -18,9 +18,11 @@ topo.zmin <- min(topo.interp$z,na.rm=TRUE)
 topo.zmax <- max(topo.interp$z,na.rm=TRUE)
 breaks <- pretty(c(topo.zmin,topo.zmax),20)
 colors <- terrain.colors(length(breaks)-1)
+pdf("../figures/terrain2a.pdf")
 with(topo.interp, image  (x,y,z, breaks=breaks, col=colors))
 with(topo.interp,contour(x,y,z, levels=breaks, add=TRUE))
 points (topo.data, pch = 3)
+dev.off()
 
 # Creating a geodata variable to use in geoR calculations
 topogeo <- as.geodata(topo.data)

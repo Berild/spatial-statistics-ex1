@@ -90,10 +90,7 @@ ggsave("../figures/uk2.pdf", plot = last_plot(), device = NULL, path = NULL,
 # Plotting variance of predicted values
 kc2.plot.se <- ggplot(kc2.df, aes(x=x,y=y,fill = var)) + 
   geom_tile() + 
-  scale_fill_gradient(high = "blue",
-                       low = "white",
-                       limits = range(kc2.df$var),
-                       name = "Var")+ 
+  scale_fill_distiller(palette = "Spectral")+
   xlab("x") +
   ylab("y") + 
   ggtitle("UK Variance 2nd order") +
@@ -102,7 +99,7 @@ kc2.plot.se
 ggsave("../figures/uk2se.pdf", plot = last_plot(), device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)
-
+#scale_fill_gradient(high = "white",low = "blue",limits = range(kc2.df$var), name = "Var")+ 
 # --------------------------------------
 # 1st degree expectation function
 kc1 <- krige.conv(

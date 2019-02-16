@@ -228,8 +228,9 @@ and the other estimates $A_r$ using the predicted spatial variable $\hat{r}(x)$ 
 
 For the former predictor, we would also like to give the associated prediction variance. The variance of the predictor $\hat{A}_r$ is
 \begin{equation*}
-    \text{Var}(\hat{A}_{r}) = \frac{1}{100^2}\sum_{i=1}^{100}\text{Var}(A_{r_i,d}) = \frac{1}{100}\text{Var}(A_{r_i,d})
+    \text{Var}(\hat{A}_{r}) = \frac{1}{100^2}\sum_{i=1}^{100}\text{Var}(A_{r_i,d}) = \frac{1}{100}\text{Var}(A_{r,d}),
 \end{equation*}
+since the realizations $r_i$ are independent.
 
 Now let $\hat{a}_r$ be the prediction of $\hat{A}_r$ given the 100 realizations from 1e), i.e a numerical value. Then the empirical variance for $A_{r,d}$ is 
 \begin{equation*}
@@ -257,8 +258,6 @@ Jensen's inequality states that for convex functions $g(Y)$, the following inequ
 
 As $\hat{r}(x) = \text{E}[r(x)|d]$, $\quad \tilde{A}_r = g(\text{E}[r(x)|d])$ with $g(Y) = \sum_{x \in L} I(Y(x)>2)$. Also, $\hat{A}_r = \text{mean}_i(g(r_i(x)))$, which is a common estimator for $\text{E}[g(r(x))]$.
 Thus, if $\sum_{x \in L} I(Y(x)>2)$ is a convex function, one would expect $\hat{A}_r > \tilde{A}_r$.
-
-\textbf{Do we have a convex function?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{g)}
 In this problem, we have seen how parameter choices in the prior and the accuracy of measurements for the likelihood affect the posterior distribution we end up with. The $nu$-parameter in the correlation function determines how smooth the prior distribution is, which also affects the characteristics of the posterior distribution. 

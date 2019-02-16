@@ -1,5 +1,5 @@
 \paragraph{a)}
-We have 52 observations contained in the domain $\mathcal{D} = (0,315)x(0,315)$. In \ref{fig:terrain2a} we see a non-stationary RF, based on the fact that the mean changes with the position of reference. 
+We have 52 observations contained in the domain $\mathcal{D} = (0,315)\times(0,315)$. In Figure \ref{fig:terrain2a} we see a non-stationary RF, based on the fact that the mean changes with the position of reference. 
 
 \begin{figure}[htb]
     \centering
@@ -63,23 +63,33 @@ Let the reference variable $\vect{x} \in \mathcal{D} \subset \mathbb{R}^2$ be $\
 \end{equation*}
 The values of $\vect{\beta}_r$ is unknown, but we don't need them to find the prediction. This is because of the unbiasedness of the expectation of the error in the prediction. 
 The expected value does not include the variance, and the variance does not involve the actually values of the observations. 
-In figure \ref{fig:uk2} we see a heat map with contours of the predicted values $\hat{r}_{\vect{x}_0}$ and it looks familiar to what we got in the interpolation made in Figure \ref{fig:terrain2a}. In Figure \ref{fig:uk2se} we see the variance in the prediction, and we see that the values are low close to the observed values and higher far away from them. Which is what we should expect from the model.
+In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values $\hat{r}_{\vect{x}_0}$ and it looks familiar to what we got in the interpolation made in Figure \ref{fig:terrain2a}. In Figure \ref{fig:uk2se} we see the variance in the prediction, and we see that the values are low close to the observed values and higher far away from them. Which is what we should expect from the model.
 \begin{figure}[htb]
     \centering
     \includegraphics{figures/uk2.pdf}
-    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)x(0,315)$.}
+    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)x(0,315)$ with second order expectation function.}
     \label{fig:uk2}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \includegraphics{figures/uk2se.pdf}
-    \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)x(0,315)$ with a second order .}
+    \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)x(0,315)$ with second order expectation fucntion.}
     \label{fig:uk2se}
 \end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
-text text text
+The probability for the height to be higher than 700 at the point $\vect{x}_0 = (100,100)$ is a normal distribution. In Figure \ref{fig:uk2} the points around $\vect{x}_0$ is around 850. The calculation yields 
+\begin{equation*}
+    P\left(Z>\frac{700 - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1-P\left(Z\leq\frac{700 - \hat{r}_0}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1.
+\end{equation*}
+So the probability for the height to be higher than 700 in $\vect{x}_0$ is 100\%.
+The height at which the probability is 0.90 of the true height being lower than the predicted height at $\vect{x}_0$ is
+\begin{equation*}
+    Z|_{P = 0.9} = \frac{alt - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}} = 1.28 \Rightarrow alt = 
+\end{equation*}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{e)}

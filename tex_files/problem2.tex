@@ -79,7 +79,7 @@ In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values 
     \end{subfigure}
     \caption{Top: Heat-map with contours of the predicted value $\hat{r}_{\vect{x}_0}$ on the grid $(0,315)\times(0,315)$ with second order expectation function. Bottom: Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
 \end{figure}
-Now we consider the model with a 1st degree expectation function. Which means we remove the 2nd order terms from $g(\vect{x})$. The comparison of the result is shown in Figure \ref{fig:uk1n2}. Here one can see a clear difference in predicted height between the models with 1st and 2nd degree exptectation function.
+Now we consider the model with a 1st degree expectation function. Which means we remove the 2nd order terms from $g(\vect{x})$. The comparison of the result is shown in Figure \ref{fig:uk1n2}. Here one can see a clear difference in predicted height between the models with 1st and 2nd degree expectation function. In the predicted variance you can't see much difference close to the data point. But the further away the reference $\vect{x}_0$, the more difference one can observe. This is because difference in $\vect{\beta}_r$ in the models is small and only visual when the variance gets large.
 \begin{figure}
 \centering
     \begin{subfigure}[H]{0.99\textwidth}
@@ -93,25 +93,23 @@ Now we consider the model with a 1st degree expectation function. Which means we
         \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2var.pdf}
         \label{fig:uk2se}
     \end{subfigure}
-    \caption{Top: Heat-map with contours of the predicted value $\hat{r}_{\vect{x}_0}$ on the grid $(0,315)\times(0,315)$ with second order expectation function. Bottom: Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
-\end{figure}
-\begin{figure}[htb]
-    \centering
-    \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2.pdf}
-    \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
-    \label{fig:uk1n2}
+    \caption{Top: A contour comparison of the predicted value with 1st and 2nd order expectation function $g(\vect{x}$. Bot: A contour comparison of the variance of the predicted variance with 1st and 2nd order expectation function.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{d)}
-The probability for the height to be higher than 700 at the point $\vect{x}_0 = (100,100)$ is a normal distribution. In Figure \ref{fig:uk2} the points around $\vect{x}_0$ is around 850. The calculation yields 
+The probability for the height to be higher than 700 at the point $\vect{x}_0 = (100,100)$ is a normal distribution. The calculation yields 
 \begin{equation*}
-    P\left(Z>\frac{700 - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1-P\left(Z\leq\frac{700 - \hat{r}_0}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1.
+\begin{array}{cc}
+     &  \\
+     & 
+\end{array}
+    P\left(Z>\frac{700 - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1-P\left(Z\leq\frac{700 - \hat{r}_0}{\sigma_{\hat{r}_{\vect{x}_0}}}\right) = 1 - P\left(Z \leq \frac{700-838.2}{\sqrt{595.5}}\right)=1
 \end{equation*}
 So the probability for the height to be higher than 700 in $\vect{x}_0$ is 100\%.
 The height at which the probability is 0.90 of the true height being lower than the predicted height at $\vect{x}_0$ is
 \begin{equation*}
-    Z|_{P = 0.9} = \frac{alt - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}} = 1.28 \Rightarrow alt = 
+    Z|_{P = 0.9} = \frac{alt - \hat{r}_{\vect{x}_0}}{\sigma_{\hat{r}_{\vect{x}_0}}} = 1.28 \Rightarrow alt = 1.28\cdot \sqrt{595.5} + 838.2 =  869.4
 \end{equation*}
 
 

@@ -1,5 +1,5 @@
 \paragraph{a)}
-We have 52 observations contained in the domain $\mathcal{D} = (0,315)\times(0,315)$. In Figure \ref{fig:terrain2a} we see a non-stationary RF, based on the fact that the mean changes with the position of reference. 
+We have 52 observations contained in the domain $\mathcal{D} = (0,315)\times(0,315)$. In Figure \ref{fig:terrain2a} we see a interpolation of the datapoints in \textit{"topo.dat"}. A stationary Gaussian RF model would not be suitable for the elevation, since the mean is changing with the reference point $\vect{x}_0$ .
 
 \begin{figure}[htb]
     \centering
@@ -64,23 +64,25 @@ Let the reference variable $\vect{x} \in \mathcal{D} \subset \mathbb{R}^2$ be $\
 The values of $\vect{\beta}_r$ is unknown, but we don't need them to find the prediction. This is because of the unbiasedness of the expectation of the error in the prediction. 
 The expected value does not include the variance, and the variance does not involve the actually values of the observations. 
 In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values $\hat{r}_{\vect{x}_0}$ and it looks familiar to what we got in the interpolation made in Figure \ref{fig:terrain2a}. In Figure \ref{fig:uk2se} we see the variance in the prediction, and we see that the values are low close to the observed values and higher far away from them. Which is what we should expect from the model.
-\begin{figure}[htb]
-    \centering
-    \includegraphics{figures/uk2.pdf}
-    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
-    \label{fig:uk2}
+\begin{figure}
+\centering
+    \begin{subfigure}[H]{0.99\textwidth}
+        \centering
+        \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk2.pdf}
+        \label{fig:uk2}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[H]{0.99\textwidth}  
+        \centering 
+        \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk2se.pdf}
+        \label{fig:uk2se}
+    \end{subfigure}
+    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)\times(0,315)$ with second order expectation function. Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
-    \includegraphics{figures/uk2se.pdf}
-    \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
-    \label{fig:uk2se}
-\end{figure}
-
-\begin{figure}[htb]
-    \centering
-    \includegraphics{figures/uk1n2.pdf}
+    \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2.pdf}
     \caption{Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
     \label{fig:uk1n2}
 \end{figure}

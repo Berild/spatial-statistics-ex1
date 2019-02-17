@@ -1,5 +1,5 @@
 \paragraph{a)}
-We have 52 observations contained in the domain $\mathcal{D} = (0,315)\times(0,315)$. In Figure \ref{fig:terrain2a} we see a interpolation of the datapoints in \textit{"topo.dat"}. A stationary Gaussian RF model would not be suitable for the elevation, since the mean is changing with the reference point $\vect{x}_0$ .
+We have 52 observations contained in the domain $\mathcal{D} = (0,315)\times(0,315)$. In Figure \ref{fig:terrain2a} we see a interpolation of the datapoints in \textit{"topo.dat"}. A stationary Gaussian RF model would not be suitable for the elevation, since the mean is changing with the reference point $\vect{x}_0$.
 
 \begin{figure}[htb]
     \centering
@@ -63,7 +63,7 @@ Let the reference variable $\vect{x} \in \mathcal{D} \subset \mathbb{R}^2$ be $\
 \end{equation*}
 The values of $\vect{\beta}_r$ is unknown, but we don't need them to find the prediction. This is because of the unbiasedness of the expectation of the error in the prediction. 
 The expected value does not include the variance, and the variance does not involve the actually values of the observations. 
-In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values $\hat{r}_{\vect{x}_0}$ and it looks familiar to what we got in the interpolation made in Figure \ref{fig:terrain2a}. In Figure \ref{fig:uk2se} we see the variance in the prediction, and we see that the values are low close to the observed values and higher far away from them. Which is what we should expect from the model.
+In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values $\hat{r}_{\vect{x}_0}$ and it resembles to what we got in the interpolation made in Figure \ref{fig:terrain2a}. We also see the variance of the prediction, where the values are low close to the observed data points and higher far away from them. Which is what we should expect from the model.
 \begin{figure}
 \centering
     \begin{subfigure}[H]{0.99\textwidth}
@@ -77,9 +77,24 @@ In Figure \ref{fig:uk2} we see a heat map with contours of the predicted values 
         \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk2se.pdf}
         \label{fig:uk2se}
     \end{subfigure}
-    \caption{Heat-map of the predicted value $\hat{r}_{\vect{x}_0}$ on a grid $(0,315)\times(0,315)$ with second order expectation function. Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
+    \caption{Top: Heat-map with contours of the predicted value $\hat{r}_{\vect{x}_0}$ on the grid $(0,315)\times(0,315)$ with second order expectation function. Bottom: Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
 \end{figure}
-
+Now we consider the model with a 1st degree expectation function. Which means we remove the 2nd order terms from $g(\vect{x})$. The comparison of the result is shown in Figure \ref{fig:uk1n2}. Here one can see a clear difference in predicted height between the models with 1st and 2nd degree exptectation function.
+\begin{figure}
+\centering
+    \begin{subfigure}[H]{0.99\textwidth}
+        \centering
+        \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2.pdf}
+        \label{fig:uk2}
+    \end{subfigure}
+    \vskip\baselineskip
+    \begin{subfigure}[H]{0.99\textwidth}  
+        \centering 
+        \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2var.pdf}
+        \label{fig:uk2se}
+    \end{subfigure}
+    \caption{Top: Heat-map with contours of the predicted value $\hat{r}_{\vect{x}_0}$ on the grid $(0,315)\times(0,315)$ with second order expectation function. Bottom: Heat-map of the predicted variance $\sigma_{\hat{r}_{\vect{x}_0}}$ on a grid $(0,315)\times(0,315)$ with second order expectation function.}
+\end{figure}
 \begin{figure}[htb]
     \centering
     \includegraphics[scale=0.8,trim=0cm 0cm 0cm 0cm]{figures/uk1n2.pdf}

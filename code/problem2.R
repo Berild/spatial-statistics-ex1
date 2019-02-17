@@ -77,6 +77,7 @@ kc2.plot.pred <- ggplot(kc2.df,
                lineend = "butt", 
                linejoin = "round",
                color = "gray52") + 
+  geom_text_contour(aes(z = kc2.df$pred))+
   xlab("x") +
   ylab("y") + 
   ggtitle("UK 2nd order") +

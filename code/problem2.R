@@ -1,4 +1,4 @@
-#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 rm(list = ls())
 library(fields) #rdist, Matern is here
 library(geoR) #Need to install XQuartz? cov.spatial() belongs here
@@ -129,6 +129,7 @@ kc.contour <- data.frame(
   x = rep(grd[,1],2),
   y = rep(grd[,2],2),
   pred_contour = c(kc1.df$pred,kc2.df$pred),
+  var_contour = c(kc1.df$var, kc2.df$var),
   group = c(rep("1st",length(kc1.df$pred)),rep("2nd",length(kc2.df$pred)))
   )
                                                                                                      
@@ -146,6 +147,20 @@ ggplot(kc.contour)+
   ggtitle("1st and 2nd order expectation function") +
   theme(plot.title = element_text(hjust = 0.5))
 ggsave("../figures/uk1n2.pdf", plot = last_plot(), device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
+ggplot(kc.contour)+
+  geom_contour(aes(x=x,y=y,z = var_contour,color=group),size=1)+
+  scale_color_manual(
+    name = "Var",
+    labels = c("1st", "2nd"),
+    values = c("royalblue3", "tan3")
+  )+
+  xlab("x") +
+  ylab("y") + 
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/uk1n2var.pdf", plot = last_plot(), device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)
 # Adding observation errors to the krigeing

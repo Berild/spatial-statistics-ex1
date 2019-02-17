@@ -197,14 +197,14 @@ nugget5.df = data.frame(
   x = grd[,1],
   y = grd[,2], 
   pred = nugget5$predict, 
-  se = sqrt(nugget5$krige.var)
+  var = (nugget5$krige.var)
   )
 
 nugget25.df = data.frame(
   x = grd[,1],
   y = grd[,2], 
   pred = nugget25$predict, 
-  se = sqrt(nugget25$krige.var)
+  var = (nugget25$krige.var)
   )         
 
 # Creating a collected data.frame for compairing in ggplot
@@ -212,15 +212,16 @@ nugget.df <- data.frame(
   x= rep(grd[,1],2),
   y=rep(grd[,2],2),
   pred=c(nugget5.df$pred,nugget25.df$pred),
-  se=c(nugget5.df$se,nugget25.df$se),
+  var=c(nugget5.df$var,nugget25.df$var),
   group=c(rep("5",length(nugget5.df$pred)),
           rep("25",length(nugget25.df$pred)))
   )
 
 # Plotting the contours of the standard error
 # of both predictions with nuggets
+
 ggplot(nugget.df,aes(x=x,y=y))+
-  geom_contour(aes(z = se,color=group),size=0.75)+
+  geom_contour(aes(z = pred,color=group),size=0.75)+
   scale_color_manual(
     name = "Nugget",
     labels = c("5", "25"),
@@ -230,6 +231,20 @@ ggplot(nugget.df,aes(x=x,y=y))+
   ylab("y") + 
   ggtitle("Observation error") +
   theme(plot.title = element_text(hjust = 0.5))
-ggsave("../figures/nugget.pdf", plot = last_plot(), device = NULL, path = NULL,
+ggsave("../figures/nugget_pred.pdf", plot = last_plot(), device = NULL, path = NULL,
+       scale = 1, width = 5.5, height = 4, units = "in",
+       dpi = 300, limitsize = TRUE)
+
+ggplot(nugget.df,aes(x=x,y=y))+
+  geom_contour(aes(z = var,color=group),size=0.75)+
+  scale_color_manual(
+    name = "var",
+    labels = c("5", "25"),
+    values = c("royalblue3", "tan3")
+  )+
+  xlab("x") +
+  ylab("y") +
+  theme(plot.title = element_text(hjust = 0.5))
+ggsave("../figures/nugget_var.pdf", plot = last_plot(), device = NULL, path = NULL,
        scale = 1, width = 5.5, height = 4, units = "in",
        dpi = 300, limitsize = TRUE)

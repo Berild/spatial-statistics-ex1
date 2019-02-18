@@ -1,4 +1,4 @@
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 rm(list = ls())
 library(fields) #rdist, Matern is here
 library(geoR) #Need to install XQuartz? cov.spatial() belongs here
@@ -7,7 +7,6 @@ library(akima)
 library(ggplot2)
 library(reshape2) #melt
 library(gridExtra) #grid.arrange
-source("multiplot.R")
 
 # data
 topo.data <- read.table(
@@ -217,8 +216,8 @@ nugget.df <- data.frame(
           rep("25",length(nugget25.df$pred)))
   )
 
-# Plotting the contours of the standard error
-# of both predictions with nuggets
+# Plotting the contours of the predicted value and standard error
+# of both predictions with nugget = 5 and 25
 
 ggplot(nugget.df,aes(x=x,y=y))+
   geom_contour(aes(z = pred,color=group),size=0.75)+

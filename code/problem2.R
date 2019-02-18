@@ -7,7 +7,7 @@ library(akima)
 library(ggplot2)
 library(reshape2) #melt
 library(gridExtra) #grid.arrange
-library(misc)
+library(metR)
 
 # data
 topo.data <- read.table(

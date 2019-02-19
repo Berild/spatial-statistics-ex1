@@ -5,7 +5,6 @@ library(ggplot2)
 library(geoR)
 
 #Make prior, draw realisation and locations to measure.
-
 ###########################################################################
 #Set grid L
 buildGrid = function(N1, N2){
@@ -47,7 +46,6 @@ prior = buildPrior(L, mu_r, sigma_r_sqrd, tau, xi)
 # Draw realization
 set.seed(12)
 realization = mvrnorm(n=1, mu = prior$E, Sigma = prior$Sigma)
-
 
 # Display realization
 # Remove stat_contour if you don't want to display the contour lines
@@ -115,7 +113,6 @@ ggsave("../figures/3b_variogram.pdf",
 
 ###########################################################################
 #Draw positions to measure
-
 randomPositions= function(num, L){
   N=L$N1*L$N2
   positions = sample(1:N, num)
